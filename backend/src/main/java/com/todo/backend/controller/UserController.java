@@ -3,7 +3,6 @@ package com.todo.backend.controller;
 import com.todo.backend.controller.request.UserRequestdto;
 import com.todo.backend.entity.UserEntity;
 import com.todo.backend.service.UserService;
-import com.todo.backend.token.TokenVerifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private TokenVerifier tokenVerifier;
 
     // 사용자 정보 저장
     @PostMapping("/save")

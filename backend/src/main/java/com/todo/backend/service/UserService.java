@@ -3,10 +3,7 @@ package com.todo.backend.service;
 import com.todo.backend.controller.request.UserRequestdto;
 import com.todo.backend.entity.UserEntity;
 import com.todo.backend.repository.UserRepository;
-import com.todo.backend.token.TokenVerifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,8 +13,6 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private TokenVerifier tokenVerifier;
 
     // 사용자 정보 저장
     public UserEntity saveUser(UserRequestdto userRequestDto) {
