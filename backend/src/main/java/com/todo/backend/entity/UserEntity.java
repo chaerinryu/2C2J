@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 public class UserEntity {
     // 테이블 설정
     @Id
-    /*@Column(nullable = false)
-    private int id;*/
     @Column(nullable = false)
     private String userId;
+    @Column(nullable = false)
+    private String accessToken; // 이건 저장할 필요 없을듯? 일단 해놓음
     @Column(nullable = false)
     private String email;
 
