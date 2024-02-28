@@ -17,13 +17,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
   sqflite: ^2.3.0
   provider: ^6.1.1
   intl: ^0.17.0
   firebase_core: ^2.25.4
   google_sign_in: ^6.2.1
+  table_calendar: ^3.0.0
+
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -32,6 +34,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  uses-material-design: true
   assets:
     - assets/brain1.png
     - assets/brain2.png
@@ -43,8 +46,6 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-uses-material-design:
-  - true
 
 
   # To add assets to your application, add an assets section, like this:
