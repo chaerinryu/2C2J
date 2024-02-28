@@ -16,10 +16,7 @@ import com.todo.backend.service.SyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,9 +36,9 @@ public class SyncController {
     }
 
     // 투두 동기화 데이터 반환
-    @PostMapping("/todo")
-    public List<TodoResponsedto> syncTodoWithServer(@RequestBody List<TodoRequestdto> localTodos) {
-        List<TodoEntity> synchronizedData = syncService.synchronizeTodoWithServer(localTodos);
+    @PostMapping("/todo/{userId}")
+    public List<TodoResponsedto> syncTodoWithServer(@RequestBody List<TodoRequestdto> localTodos, @PathVariable String userId) {
+        List<TodoEntity> synchronizedData = syncService.synchronizeTodoWithServer(userId, localTodos);
         return TodoResponsedto.fromTodoList(synchronizedData);
     }
 
@@ -58,5 +55,4 @@ public class SyncController {
         List<LogEntity> synchronizedData = syncService.synchronizeLogWithServer(localLogs);
         return LogResponsedto.fromLogList(synchronizedData);
     }
-
 }

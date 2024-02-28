@@ -11,5 +11,7 @@ import java.util.List;
 public interface TodoRepository extends JpaRepository<TodoEntity, Integer> {
     //가장 최신 데이터 시간 찾기
     @Query("SELECT MAX(lastData) FROM TodoEntity")
-    LocalDateTime findLastData();
+    LocalDateTime findLastData(String userId);
+
+    List<TodoEntity> findByUserId(String userId);
 }

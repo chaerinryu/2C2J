@@ -4,14 +4,8 @@ import com.todo.backend.controller.request.ChallengeRequestdto;
 import com.todo.backend.controller.request.LogRequestdto;
 import com.todo.backend.controller.request.RoutineRequestdto;
 import com.todo.backend.controller.request.TodoRequestdto;
-import com.todo.backend.entity.ChallengeEntity;
-import com.todo.backend.entity.LogEntity;
-import com.todo.backend.entity.RoutineEntity;
-import com.todo.backend.entity.TodoEntity;
-import com.todo.backend.repository.ChallengeRepository;
-import com.todo.backend.repository.LogRepository;
-import com.todo.backend.repository.RoutineRepository;
-import com.todo.backend.repository.TodoRepository;
+import com.todo.backend.entity.*;
+import com.todo.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,37 +69,37 @@ public class SyncService {
     }
 
     // 투두 동기화 데이터
-    public List<TodoEntity> synchronizeTodoWithServer(List<TodoRequestdto> localTodos) {
+    public List<TodoEntity> synchronizeTodoWithServer(String userId, List<TodoRequestdto> localTodos) {
         // 가장 최신 데이터의 lastData를 서버로부터 가져옴
-        LocalDateTime serverLastData = todoService.getLastData();
+        LocalDateTime serverLastData = todoService.getLastData(userId);
 
         // 최신 데이터 이후 추가된 데이터 필터링
-        List<TodoRequestdto> addedData = todoService.filterAddedData(localTodos, serverLastData);
+        List<TodoRequestdto> addedData = todoService.filterAddedData(userId, localTodos, serverLastData);
 
         // 최신 데이터 이후 수정된 데이터 필터링
         List<TodoRequestdto> modifiedData = todoService.filterModifiedAfter(localTodos, serverLastData);
 
         // 추가된 데이터를 서버에 전송 및 저장
-        addTodoToServer(addedData);
+        addTodoToServer(userId, addedData);
 
         // 수정된 데이터를 서버에 전송 및 저장
         updateTodoOnServer(modifiedData);
 
         // 동기화된 투두 엔티티 반환
-        return todoService.getAllTodo();
+        return todoService.getAllTodo(userId);
     }
 
     // 투두 추가 데이터 동기화
-    private void addTodoToServer(List<TodoRequestdto> addedData) {
+    private void addTodoToServer(String userId, List<TodoRequestdto> addedData) {
         for (TodoRequestdto todo : addedData) {
-            todoService.addTodo(todo);
+            todoService.addTodo(userId, todo);
         }
     }
 
     // 투두 수정 데이터 동기화
     private void updateTodoOnServer(List<TodoRequestdto> modifiedData) {
         for (TodoRequestdto todo : modifiedData) {
-            todoService.updateTodo(todo.getId(), todo);
+            todoService.updateTodo(todo.getId(), todo); // 수정된 일정 id 얻어서 하는듯
         }
     }
 

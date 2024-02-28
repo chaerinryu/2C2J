@@ -1,5 +1,6 @@
 package com.todo.backend.controller.request;
 
+import com.todo.backend.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,4 +16,5 @@ public class TodoRequestdto {
     private String memo;
     private String dotype;
     private LocalDateTime lastData;
+    private UserEntity userId;
 }
